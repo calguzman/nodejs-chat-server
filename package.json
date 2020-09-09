@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-chat-server",
+  "version": "1.0.0",
+  "description": "Node JS Chat Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/calguzman/nodejs-chat-server.git"
+  },
+  "keywords": [
+    "Node",
+    "Server",
+    "Chat"
+  ],
+  "author": "cguzman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/calguzman/nodejs-chat-server/issues"
+  },
+  "homepage": "https://github.com/calguzman/nodejs-chat-server#readme"
+}
