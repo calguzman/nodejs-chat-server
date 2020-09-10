@@ -4,7 +4,8 @@
   "description": "Node JS Chat Server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/calguzman/nodejs-chat-server/issues"
   },
-  "homepage": "https://github.com/calguzman/nodejs-chat-server#readme"
+  "homepage": "https://github.com/calguzman/nodejs-chat-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
