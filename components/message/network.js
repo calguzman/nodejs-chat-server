@@ -7,7 +7,10 @@ const controller = require('./controller');
 
 // Path => /message/
 
-// Get All Messages
+/* -------------------------------------------------------------------------- */
+/*                                List Messages                               */
+/* -------------------------------------------------------------------------- */
+
 router.get('/', async (req, res) => {
   try {
     let messageList = await controller.getMessages();
@@ -19,7 +22,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create Messages
+/* -------------------------------------------------------------------------- */
+/*                               Create Message                              */
+/* -------------------------------------------------------------------------- */
+
 router.post('/', async (req, res) => { 
   let user = req.body.user; 
   let message = req.body.message; 
@@ -29,7 +35,24 @@ router.post('/', async (req, res) => {
   }catch(error){
     // Se ha presentado un error creando el mensaje
     response.error(req,res,'Información Invalida:',400,error);
-    console.error(`add Mesagge a devuleto un error => ${error}`);
+    console.error(`add Mesagge a devuelto un error => ${error}`);
+  }
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               Modify Message                               */
+/* -------------------------------------------------------------------------- */
+
+router.patch('/:id', async (req, res) => { 
+  let id = req.params.id;
+  let message = req.body.message;
+  try  {
+    const result = await controller.updateMessage(id,message);
+    response.success(req,res,result,200);
+  }catch(error){
+    // Se ha presentado un error creando el mensaje
+    response.error(req,res,'Información Invalida:',400,error);
+    console.error(`Update Message: A devuelto un error => ${error}`);
   }
 });
 
