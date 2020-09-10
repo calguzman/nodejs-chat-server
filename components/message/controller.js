@@ -1,32 +1,45 @@
 const store = require('./store');
 
 /* -------------------------------------------------------------------------- */
-/*                                 add Message                                */
+/*                                 Add Message                                */
 /* -------------------------------------------------------------------------- */
 
 function addMessage(user,message) {
   // TODO  ADD MESSAGE
-  return new Promise((resolve,reject)=>{
-    if(!user || !message){
+  return new Promise(async (resolve,reject)=>{
+    if(!user){
       console.error('[messageController] No hay Usuario o Mensaje');
       return reject('Composición de mensaje invalida');
-      console.log("Aun corriendo If ");
-      return false; 
     }
     const fullMessage = {
       user:user,
       message:message, 
       date: new Date(),
     }
-    store.add(fullMessage);
-    resolve(fullMessage);
+    try {
+      await store.add(fullMessage);
+      resolve(fullMessage);
+    } catch (error) {
+      return reject(error);
+    }
+    
   })
 }
-function getMessages() {
+/* -------------------------------------------------------------------------- */
+/*                                Get Messages                                */
+/* -------------------------------------------------------------------------- */
+
+function getMessages(filterUser) {
   return new Promise((resolve,reject)=>{
-    resolve(store.list()); 
+    resolve(store.list(filterUser)); 
   });
-} function updateMessage(id,message) {
+} 
+
+/* -------------------------------------------------------------------------- */
+/*                               Update Message                               */
+/* -------------------------------------------------------------------------- */
+
+function updateMessage(id,message) {
   return new Promise( async (resolve,reject)=>{
     if(!id || !message){
       return reject('Composición Invalida');
@@ -36,8 +49,28 @@ function getMessages() {
     resolve (result);
   });
 }
+
+/* -------------------------------------------------------------------------- */
+/*                               Delete Message                               */
+/* -------------------------------------------------------------------------- */
+
+function deleteMessage(id) {
+  return new Promise( async (resolve,reject)=>{
+    if(!id){
+      return reject('Composición Invalida');
+      return false
+    }
+    try {
+      const result = await store.remove(id);
+      resolve (result);
+    } catch (error) {
+      return reject(error);
+    }
+  });
+}
 module.exports = {
   addMessage,
   getMessages,
   updateMessage,
+  deleteMessage,
 }

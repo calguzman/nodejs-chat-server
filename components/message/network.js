@@ -13,7 +13,8 @@ const controller = require('./controller');
 
 router.get('/', async (req, res) => {
   try {
-    let messageList = await controller.getMessages();
+    const filterUser = req.query.user || null; 
+    let messageList = await controller.getMessages(filterUser);
     response.success(req,res,messageList,200);
   } catch (error) {
     // TODO MANAGE ERROR FOR GET MESSAGES FROM CONTROLLER Y DB 
@@ -34,7 +35,7 @@ router.post('/', async (req, res) => {
     response.success(req,res,result,201);
   }catch(error){
     // Se ha presentado un error creando el mensaje
-    response.error(req,res,'Información Invalida:',400,error);
+    response.error(req,res,'Petición Invalida:',400,error);
     console.error(`add Mesagge a devuelto un error => ${error}`);
   }
 });
@@ -53,6 +54,22 @@ router.patch('/:id', async (req, res) => {
     // Se ha presentado un error creando el mensaje
     response.error(req,res,'Información Invalida:',400,error);
     console.error(`Update Message: A devuelto un error => ${error}`);
+  }
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               Delete Message                               */
+/* -------------------------------------------------------------------------- */
+
+router.delete('/:id', async (req, res) => { 
+  let id = req.params.id;
+  try  {
+    const result = await controller.deleteMessage(id);
+    response.success(req,res,`Mensaje con id ${id} Eliminado`,200);
+  }catch(error){
+    // Se ha presentado un error Eliminando el mensaje
+    response.error(req,res,'Información Invalida:',500,error);
+    console.error(`Delete Message: A devuelto un error => ${error}`);
   }
 });
 
